@@ -38,6 +38,8 @@ const addBooksHandler = (request, h) => {
             updatedAt: currentDate 
         };
 
+        books.push(book);
+        
         return h.response({
             status: "success",
             message: "Buku berhasil ditambahkan",
@@ -54,9 +56,10 @@ const addBooksHandler = (request, h) => {
     }
 };
 
-const getAllBooksHandler = (h) => {
+const getAllBooksHandler = (request, h) => {
     try {
-        if (books.length === 0) {
+        const allBooks = books;
+        if (allBooks.length === 0) {
             return h.response({
                 status: "success",
                 data: {
@@ -68,7 +71,7 @@ const getAllBooksHandler = (h) => {
         return h.response({
             status: "success",
             data: {
-                books: books.map(book => ({
+                books: allBooks.map(book => ({
                     id: book.id,
                     name: book.name,
                     publisher: book.publisher
